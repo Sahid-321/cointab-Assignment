@@ -1,9 +1,27 @@
 import { useNavigate } from "react-router-dom"
 
 const PageOne = ()=>{
+
+    
+    //fetch data
+    function getUsers() {
+        fetch("https://randomuser.me/api/?results=50")
+          .then((results) => {
+            return results.json();
+          })
+          .then((data) => {
+            console.log(data.results);
+            // Access your data here
+          });
+      }
+      
+  
+
+
     const navigate = useNavigate();
 const handleFetch = ()=>{
-    fetch()
+    getUsers()
+ 
 
 }
 
