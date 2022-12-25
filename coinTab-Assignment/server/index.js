@@ -8,8 +8,6 @@ import fetch from 'node-fetch';
 app.use(express.json())
 app.use(cors())
 
-var arr = [];
-
 mongoose.connect("mongodb://localhost:27017/details", () => {
     console.log("mongoDB connected");
 })
@@ -23,6 +21,10 @@ const mongoSchema = mongoose.Schema({
         type: String,
     },
     last: {
+        type: String,
+
+    },
+    gender: {
         type: String,
 
     },
@@ -68,8 +70,6 @@ function userFnc() {
                 })
 
 
-                // User.insertMany(arr)
-                //    User.deleteMany(arr)
 
             }
 
@@ -82,11 +82,11 @@ function userFnc() {
 
 app.post('/post', async (req, res) => {
     console.log("hello");
-   try {
-   await userFnc()
-   } catch (error) {
-    console.log(error);
-   }
+    try {
+        await userFnc()
+    } catch (error) {
+        console.log(error);
+    }
 
 })
 
@@ -107,6 +107,43 @@ app.delete('/delete', (req, res) => {
         }
         )
 
+})
+
+app.get('/get',  async(req, res) => {
+   
+       
+
+        try {
+            const page = parseInt(req.query.page)-1 || 0;
+            const limit = parseInt(req.query.limit) ||5;
+            let gender = req.query.gender || 'All'
+            let genderFilter = [
+                "male",
+                "female",
+            ]
+            gender === "All"
+            ? (gender = [...genderFilter])
+            :(gender = req.query.gender.split(","))
+
+
+            const  user= await User.find()
+            .where("gender")
+            .in([...gender])
+            .skip(page*limit)
+            .limit(limit)
+            const total = await User.countDocuments()
+            const response = {
+                
+                page: page + 1,
+                limit,
+                total,
+                gender:genderFilter,
+                user
+            }
+            res.status(200).json(response)
+        } catch (error) {
+            console.log(error,"error");
+        }
 })
 
 

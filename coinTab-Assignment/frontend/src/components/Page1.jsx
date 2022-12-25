@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 const PageOne = () => {
     const navigate = useNavigate();
-    const [storeUser, setStoreUser] = useState([])
-    const [userValue, setUserValue] = useState([])
+   
   
     const handleFetch = () => {
 alert("User Data Fetched and Added in your MongoDB")
@@ -25,7 +24,7 @@ alert("User Data Fetched and Added in your MongoDB")
         
     }
 
-    const handkeDetails = () => {
+    const handleDetails = () => {
         navigate('/page2')
     }
     return (
@@ -33,7 +32,7 @@ alert("User Data Fetched and Added in your MongoDB")
             <h1>Home Page</h1>
             <button onClick={handleFetch}>Fetch User</button>
             <button onClick={handleDelete}>Delete User</button>
-            <button onClick={handkeDetails}>User Details</button>
+            <button onClick={handleDetails}>User Details</button>
         </>
     )
 }
