@@ -15,22 +15,47 @@ const PageTwo = () => {
             .catch((err) => console.log(err))
 
     }, [count,gender])
-   
 //For increament
     const handleDecrement = () => {
         if (count > 1) {
             setCount(count - 1)
         }
 
-        console.log(count);
+        
     }
     //for decrement
     const handleIncrement = () => {
-        if (count != 10) {
+        if (gender == 'male' && count !=5) {
             setCount(count + 1)
+         
         }
+       
+        if(gender == 'female' && count !=6){
+          
+            setCount(count + 1)
+        
+        }
+     
+        
+        if(gender == "" && count !=10)
 
-        console.log(count);
+     
+        setCount(count + 1)
+       
+    }
+
+    // for filter
+    const handleAll = ()=>{
+setGender("")
+setCount(1)
+    }
+    const handleMale = ()=>{
+        setGender("male")
+        setCount(1)
+    }
+    const handleFemale = ()=>{
+        setGender("female")
+        setCount(1)
     }
 
     return (
@@ -39,10 +64,10 @@ const PageTwo = () => {
             <Button onClick={() => navigate(-1)}>BACK</Button>
             <h3>Filter By Gender</h3>
             <div >
-            <Button onClick={() => setGender("")} style={{ color: "black", background: "gray", borderRadius: "10px" }}>All</Button>
+            <Button onClick={handleAll} style={{ margin: "5px", background: "gray", color: "black", borderRadius: "10px" }}>All</Button>
 
-                <Button onClick={() => setGender("male")} style={{ margin: "5px", background: "gray", color: "black", borderRadius: "10px" }}>Male</Button>
-                <Button onClick={() => setGender("female")} style={{ color: "black", background: "gray", borderRadius: "10px" }}>Female</Button>
+                <Button onClick={handleMale} style={{ margin: "5px", background: "gray", color: "black", borderRadius: "10px" }}>Male</Button>
+                <Button onClick={handleFemale} style={{ color: "black", background: "gray", borderRadius: "10px" }}>Female</Button>
            
             </div>
             <div style={{ display: "flex" }}>
